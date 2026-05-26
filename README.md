@@ -12,20 +12,26 @@
 | Framework | NestJS |
 | Language | TypeScript |
 | ORM | TypeORM |
-| Database | PostgreSQL (Vercel Postgres) |
+| Database | PostgreSQL (Vercel Neon) |
+| Validation | class-validator, class-transformer |
+| API 문서 | Swagger (@nestjs/swagger) |
+| 배포 | Vercel (서버리스) |
 
 ## 프로젝트 구조
 
 ```
-src/
-├── common/
-│   └── filters/          # 전역 예외 처리
-├── database/
-│   └── database.config.ts  # DB 연결 설정
-├── app.module.ts
-├── app.controller.ts
-├── app.service.ts
-└── main.ts
+├── api/
+│   └── index.ts              # Vercel 서버리스 진입점
+├── src/
+│   ├── common/
+│   │   └── filters/          # 전역 예외 처리
+│   ├── database/
+│   │   └── database.config.ts  # DB 연결 설정
+│   ├── app.module.ts
+│   ├── app.controller.ts
+│   ├── app.service.ts
+│   └── main.ts
+└── vercel.json               # Vercel 배포 설정
 ```
 
 ## 개발 환경 세팅
@@ -59,7 +65,7 @@ POSTGRES_URL=postgres://...
 
 ```bash
 # 개발 모드 (파일 변경 자동 반영)
-npm run start:dev
+npm run dev
 
 # 프로덕션 빌드 후 실행
 npm run build
@@ -81,11 +87,36 @@ curl http://localhost:3000/api/health
 }
 ```
 
+### 5. Swagger UI
+
+```
+http://localhost:3000/api/docs
+```
+
 ## 주요 스크립트
 
 ```bash
-npm run start:dev   # 개발 서버 실행
+npm run dev         # 개발 서버 실행
 npm run build       # 프로덕션 빌드
 npm run test        # 테스트 실행
 npm run test:cov    # 테스트 커버리지
 ```
+
+## Vercel 배포
+
+1. GitHub 레포를 Vercel에 연결
+2. Vercel 대시보드 → 프로젝트 → **Settings > Environment Variables** 에서 환경 변수 추가
+
+```env
+NODE_ENV=production
+POSTGRES_URL=postgresql://...
+```
+
+3. `git push` 시 자동 배포
+
+배포 후 엔드포인트:
+
+| 경로 | 설명 |
+|------|------|
+| `/api/health` | 헬스체크 |
+| `/api/docs` | Swagger UI |

@@ -3,6 +3,10 @@ node_modules/
 
 # Build output
 dist/
+api/*.js
+api/*.js.map
+api/*.d.ts
+tsconfig.build.tsbuildinfo
 
 # Environment
 .env
