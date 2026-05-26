@@ -4,8 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from '../src/app.module';
 import { HttpExceptionFilter } from '../src/common/filters/http-exception.filter';
-import * as express from 'express';
-import { Express } from 'express';
+import express, { Express } from 'express';
 
 const expressApp: Express = express();
 let isInitialized = false;
