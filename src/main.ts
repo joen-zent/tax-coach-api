@@ -19,13 +19,7 @@ async function bootstrap() {
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup("api/docs", app, document, {
-    customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.32.6/swagger-ui.min.css',
-    customJs: [
-      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.32.6/swagger-ui-bundle.min.js',
-      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.32.6/swagger-ui-standalone-preset.min.js',
-    ],
-  });
+  SwaggerModule.setup("api/docs", app, document);
 
   const port = process.env.PORT ?? 3000;
   await app.listen(port);
